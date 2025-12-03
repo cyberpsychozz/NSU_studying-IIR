@@ -45,93 +45,88 @@ def average_digit(data, digit):
     return np.average(filtered_array, axis=0)
 
 class MyClassifier:
-    def __init__(self, W, b = -45):
+    def __init__(self, W, norm, b = 0.0):
         self.W = W
         self.b = b
+        self.norm = norm
     
     def predict(self, x):
-        return 1.0 if ((np.dot(self.W, x)[0][0] + self.b)/ np.linalg.norm(self.W)) >= 0 else 0
+        x_norm = np.linalg.norm(x)
+        if x_norm == 0:
+            return 0.0
+        cos_sim = (np.dot(self.W, x)[0][0] / (self.norm * x_norm)) + self.b
+        return 1.0 if cos_sim >= 0 else 0.0
     
 
-W0 = np.transpose(average_digit(train, 0))
-W1 = np.transpose(average_digit(train, 1))
-W2 = np.transpose(average_digit(train, 2))
-W3 = np.transpose(average_digit(train, 3))
-W4 = np.transpose(average_digit(train, 4))
-W5 = np.transpose(average_digit(train, 5))
-W6 = np.transpose(average_digit(train, 6))
-W7 = np.transpose(average_digit(train, 7))
-W8 = np.transpose(average_digit(train, 8))
-W9 = np.transpose(average_digit(train, 9))
+avgs = {i: average_digit(train, i) for i in range(10)}
+weights = {i: np.transpose(avgs[i]) for i in range(10)} 
+norms = {i: np.linalg.norm(weights[i]) for i in range(10)}
 
-weights = {
-    0 : W0,
-    1 : W1,
-    2 : W2,
-    3 : W3,
-    4 : W4, 
-    5 : W5,
-    6 : W6,
-    7 : W7,
-    8 : W8,
-    9 : W9
-}
-
-accuracy = []
-
-train = list(train)
-test = list(test)
-
-# print(len(train))
-
+accuracies = []
 for i in range(10):
-    model = MyClassifier(weights[i])
+    model = MyClassifier(weights[i], norms[i], b=-30)  
     TP, TN, FP, FN = 0, 0, 0, 0
-    for j in range(len(test)):
-        digit = test[j][0]
-        label = np.argmax(test[j][1])
-        
+    for digit, label_onehot in test:
+        label = np.argmax(label_onehot)
         prediction = model.predict(digit)
-        if label == i and prediction == 1:
-            TP += 1
-        elif label == i and prediction == 0:
-            FP += 1
-        elif label != i and prediction == 0:
-            TN += 1
-        elif label != i and prediction == 1:
-            FP += 1
-        
-    accuracy.append((TP+TN)/(TP + TN + FP + FN))
-
+        if label == i:
+            if prediction == 1:
+                TP += 1
+            else:
+                FN += 1 
+        else:
+            if prediction == 0:
+                TN += 1
+            else:
+                FP += 1
+    acc = (TP + TN) / (TP + TN + FP + FN) if (TP + TN + FP + FN) > 0 else 0
+    accuracies.append(acc)
 
 class DigitsClassifier:
-    def __init__(self, weights, accuracy, b = -45):
-        self.weights = weights
-        self.accuracy = accuracy
-        self.b = b
-        self.classifiers = [MyClassifier(w) for w in weights]
-
+    def __init__(self, weights, norms, accuracies, b=-0.05):
+        self.classifiers = [MyClassifier(weights[i], norms[i], b) for i in range(10)]  
+        self.accuracies = accuracies
+    
     def predict(self, x):
-        predictions = []
-        for i,c in enumerate(self.classifiers):
-            predictions.append(accuracy[i] * c.predict(x))
-        answer = np.zeros((10,1))
-        answer[np.argmax(predictions)] = 1
-        return answer
         
+        predictions = [self.accuracies[i] * c.predict(x) for i, c in enumerate(self.classifiers)]
+        if max(predictions) == 0:  
+            raw_sims = [np.dot(weights[i], x)[0][0] / (norms[i] * np.linalg.norm(x)) for i in range(10)]
+            max_idx = np.argmax(raw_sims)
+        else:
+            max_idx = np.argmax(predictions)
+        answer = np.zeros((10, 1))
+        answer[max_idx] = 1
+        return answer
 
-classifier = DigitsClassifier(weights, accuracy)
+classifier = DigitsClassifier(weights, norms, accuracies, b = -30)
 
-TP, TN, FP, FN = 0, 0, 0, 0
-precision, recall = 0, 0
-for i in range(len(test)):
-    digit = test[i][0]
-    label = np.argmax(test[i][1])
+per_class = []
+for target_class in range(10):
+    TP = FP = FN = TN = 0
+    for digit, label_onehot in test:
+        true_label = np.argmax(label_onehot)
+        pred_onehot = classifier.predict(digit)
+        pred_label = np.argmax(pred_onehot)
+        
+        if true_label == target_class:
+            if pred_label == target_class:
+                TP += 1
+            else:
+                FN += 1
+        else:
+            if pred_label == target_class:
+                FP += 1
+            else:
+                TN += 1
+    precision = TP / (TP + FP) if (TP + FP) > 0 else 0
+    recall = TP / (TP + FN) if (TP + FN) > 0 else 0
+    per_class.append((precision, recall))
 
-    answer = np.argmax(classifier.predict(digit))
-    if answer == label:
-        TP += 1
-    elif answer != label:
-        FP += 1
-precision = TP/(TP+FP)
-recall = TP/(TP + FP)
+
+precisions, recalls = zip(*per_class)
+macro_precision = np.mean(precisions)
+macro_recall = np.mean(recalls)
+
+print(f"Macro Precision: {macro_precision:.4f}")
+print(f"Macro Recall: {macro_recall:.4f}")
