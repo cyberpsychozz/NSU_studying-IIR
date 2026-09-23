@@ -1,0 +1,7 @@
+path: /home/cyberpsychoz/NSU_studying-IIR/2_course/2_sem/AI/Laboratory_3/dataset
+train: train/images
+val: val/images
+test: test/images
+
+nc: 1
+names: ['Plane']

@@ -1,0 +1,5 @@
+If you make you of the test dataset or weights, please cite our paper.
+
+Bakırman, T. & Sertel, E. (2023). "A benchmark dataset for deep learning-based airplane detection: HRPlanes". International Journal of Engineering and Geosciences , 8 (3) , 212-223 . DOI: 10.26833/ijeg.1107890.
+
+https://dergipark.org.tr/en/pub/ijeg/issue/77206/1107890

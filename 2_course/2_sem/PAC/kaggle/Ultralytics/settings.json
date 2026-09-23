@@ -1,0 +1,21 @@
+{
+  "settings_version": "0.0.6",
+  "datasets_dir": "/home/cyberpsychoz/NSU_studying-IIR/2_course/2_sem/PAC/kaggle/datasets",
+  "weights_dir": "weights",
+  "runs_dir": "runs",
+  "uuid": "cd6c3138e0df3a5a490df6b734d52f1132dc21dde35b847bb8b6121dc232ab08",
+  "sync": true,
+  "api_key": "",
+  "openai_api_key": "",
+  "clearml": true,
+  "comet": true,
+  "dvc": true,
+  "hub": true,
+  "mlflow": true,
+  "neptune": true,
+  "raytune": true,
+  "tensorboard": false,
+  "wandb": false,
+  "vscode_msg": true,
+  "openvino_msg": true
+}
