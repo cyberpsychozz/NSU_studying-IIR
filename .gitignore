@@ -1,0 +1,32 @@
+.gitignore
+
+# Python caches and tooling
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Jupyter and editor-generated files
+.ipynb_checkpoints/
+tempCodeRunnerFile.*
+
+# Compiled artifacts
+*.o
+*.hi
+*.exe
+*.out
+
+# Local datasets, model weights, and experiment outputs
+images/
+*.pth
+*.pt
+*.mp4
+EuroSAT_MS/
+archive/
+dataset/
+img/
+amia-public-challenge-2026/
+yolo_data/
+yolo_data_v2/
+runs/
