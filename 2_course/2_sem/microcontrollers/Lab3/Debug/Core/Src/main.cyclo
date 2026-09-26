@@ -1,0 +1,9 @@
+../Drivers/CMSIS/Include/core_cm4.h:1684:22:__NVIC_EnableIRQ	2
+../Drivers/CMSIS/Include/core_cm4.h:1814:22:__NVIC_SetPriority	2
+../Core/Src/main.c:61:15:GPIO_ReadPin	2
+../Core/Src/main.c:69:7:GPIO_TogglePin	2
+../Core/Src/main.c:77:7:GPIO_WritePin	2
+../Core/Src/main.c:104:5:main	5
+../Core/Src/main.c:209:6:SystemClock_Config	3
+../Core/Src/main.c:255:13:MX_GPIO_Init	1
+../Core/Src/main.c:289:6:Error_Handler	1

@@ -1,0 +1,8 @@
+../Core/Src/main.c:66:6:custom_moder	32	static
+../Core/Src/main.c:74:6:custom_afr	40	static
+../Core/Src/main.c:85:6:custom_tim4	4	static
+../Core/Src/main.c:113:5:main	16	static
+../Core/Src/main.c:182:6:SystemClock_Config	88	static
+../Core/Src/main.c:228:13:MX_TIM4_Init	64	static
+../Core/Src/main.c:291:13:MX_GPIO_Init	24	static
+../Core/Src/main.c:309:6:Error_Handler	4	static,ignoring_inline_asm

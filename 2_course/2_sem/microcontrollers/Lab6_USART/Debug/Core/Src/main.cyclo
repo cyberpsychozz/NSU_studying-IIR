@@ -1,0 +1,11 @@
+../Drivers/CMSIS/Include/core_cm4.h:1684:22:__NVIC_EnableIRQ	2
+../Drivers/CMSIS/Include/core_cm4.h:1814:22:__NVIC_SetPriority	2
+../Core/Inc/main.h:87:20:Buffer_Push	2
+../Core/Src/main.c:63:6:send_string_pc	2
+../Core/Src/main.c:70:6:send_uint8_pc	4
+../Core/Src/main.c:87:6:send_ring_packet	3
+../Core/Src/main.c:109:6:process_ring_packet	19
+../Core/Src/main.c:182:6:handle_pc_input	18
+../Core/Src/main.c:249:5:main	25
+../Core/Src/main.c:454:7:SystemClock_Config	4
+../Core/Src/main.c:523:7:Error_Handler	1

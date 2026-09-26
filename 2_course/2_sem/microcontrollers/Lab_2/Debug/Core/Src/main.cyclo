@@ -1,0 +1,7 @@
+../Core/Src/main.c:57:15:GPIO_ReadPin	2
+../Core/Src/main.c:65:7:GPIO_TogglePin	2
+../Core/Src/main.c:73:7:GPIO_WritePin	2
+../Core/Src/main.c:86:5:main	12
+../Core/Src/main.c:213:6:SystemClock_Config	4
+../Core/Src/main.c:266:13:MX_GPIO_Init	1
+../Core/Src/main.c:289:6:Error_Handler	1

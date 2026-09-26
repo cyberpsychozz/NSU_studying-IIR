@@ -1,0 +1,8 @@
+../Core/Src/main.c:66:6:custom_moder	1
+../Core/Src/main.c:74:6:custom_afr	1
+../Core/Src/main.c:85:6:custom_tim4	1
+../Core/Src/main.c:113:5:main	4
+../Core/Src/main.c:182:6:SystemClock_Config	3
+../Core/Src/main.c:228:13:MX_TIM4_Init	7
+../Core/Src/main.c:291:13:MX_GPIO_Init	1
+../Core/Src/main.c:309:6:Error_Handler	1
